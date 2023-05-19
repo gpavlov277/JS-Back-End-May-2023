@@ -1,0 +1,17 @@
+{
+  "name": "resources",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "formidable": "^2.1.1",
+    "nodemon": "^2.0.22"
+  }
+}
