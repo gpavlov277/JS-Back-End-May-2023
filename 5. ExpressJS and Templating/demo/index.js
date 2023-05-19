@@ -1,6 +1,16 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const handlebars = require("express-handlebars");
+const { addCat, getCats } = require("./cats");
+
+app.engine(
+  "hbs",
+  handlebars.engine({
+    extname: "hbs",
+  })
+);
+app.set("view engine", "hbs");
 
 // Add third party middleware
 const bodyParser = express.urlencoded({ extended: false });
@@ -13,22 +23,11 @@ app.use((req, res, next) => {
 });
 // Express Router / Actions
 app.get("/", (req, res) => {
-  res.send(`<a href = "/download" target="_blank">Hello Expres.js!</a>`);
+  // res.send(`<a href = "/download" target="_blank">Hello Expres.js!</a>`);
+  res.render("home");
 });
 app.get("/cats", (req, res) => {
-  res.send(`<!DOCTYPE html>
-  <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="/css/style.css"/>
-      <title>Document</title>
-  </head>
-  <body>
-      <h1>Hello World</h1>
-  </body>
-  </html>`);
+  res.render("cats", cats);
 });
 
 // Do not do this at home!
@@ -46,8 +45,15 @@ app.get("/download", (req, res) => {
 app.get("/old-route", (req, res) => {
   res.redirect("/cats");
 });
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+app.post("/cats", (req, res) => {
+  addCat(req.body.name, req.body.age);
+  console.log(getCats);
+  res.redirect("/");
+});
 app.get("*", (req, res) => {
   res.status(404).send("Not Found");
 });
-
 app.listen(3000, () => console.log("Server is listening on port 3000..."));
