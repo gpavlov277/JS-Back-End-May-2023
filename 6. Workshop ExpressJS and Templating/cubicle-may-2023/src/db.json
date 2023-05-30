@@ -1,1 +1,25 @@
-{ "cubes": [] }
+{
+  "cubes": [
+    {
+      "id": 1,
+      "name": "Mazda Mazda6",
+      "description": "It's a Mirror Cube",
+      "imageUrl": "https://media.ed.edmunds-media.com/mazda/6/2021/oem/2021_mazda_6_sedan_carbon-edition_fq_oem_1_815.jpg",
+      "difficultyLevel": "4"
+    },
+    {
+      "id": 2,
+      "name": "Mazda CX-90",
+      "description": "It's a Mazda SUV",
+      "imageUrl": "https://hips.hearstapps.com/hmg-prod/images/2024-mazda-cx-90-front-three-quarters-2-1675135760.jpg?resize=480:*",
+      "difficultyLevel": "5"
+    },
+    {
+      "id": 3,
+      "name": "BMW 530xd",
+      "description": "It's a BMW Car",
+      "imageUrl": "https://www.bmw.com.mt/content/dam/bmw/common/all-models/5-series/sedan/2021/Highlights/bmw-5-series-sedan-gallery-image-Individual-01_1920.jpg.asset.1659100562904.jpg",
+      "difficultyLevel": "9"
+    }
+  ]
+}

@@ -2,7 +2,6 @@ const router = require("express").Router();
 const cubeManager = require("../managers/cubeManager.js");
 router.get("/create", (req, res) => {
   res.render("create");
-  console.log(cubeManager.getAll());
 });
 router.post("/create", (req, res) => {
   console.log(req.body);
@@ -16,7 +15,10 @@ router.post("/create", (req, res) => {
   res.redirect("/");
 });
 router.get("/:cubeId/details", (req, res) => {
-  const cubeID = cubeManager.getOne(req.params.cubeId);
-  res.render("details", cubeID);
+  const cube = cubeManager.getOne(req.params.cubeId);
+  if (!cube) {
+    return res.redirect("/404");
+  }
+  res.render("details", cube);
 });
 module.exports = router;
