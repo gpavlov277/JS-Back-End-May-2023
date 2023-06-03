@@ -1,6 +1,4 @@
 const uniqid = require("uniqid");
-const cubesFile = require("../db.json");
-const cubes = cubesFile.cubes;
 
 const Cube = require("../models/Cube");
 
