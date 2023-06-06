@@ -2,7 +2,7 @@ const express = require("express");
 const { v4: uuid } = require("uuid");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
-const jwt = require("./lib/jwt-util");
+const jwt = require("jsonwebtoken");
 const secret = "alabalasecret";
 
 const app = express();
@@ -49,36 +49,34 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const isValid = await bcrypt.compare(password, users[username]?.password);
+
   if (isValid) {
-    try {
-      const payload = { username };
-      const token = await jwt.sign(payload, secret, { expiresIn: "2d" });
+    const payload = { username };
+    jwt.sign(payload, secret, { expiresIn: "2d" }, (err, token) => {
+      if (err) {
+        res.redirect("/404");
+      }
       res.cookie("token", token);
       res.redirect("/profile");
-    } catch (error) {
-      console.log(err);
-      res.redirect("/404");
-    }
+    });
   } else {
     res.status(401).send("Login error");
   }
 });
 
-app.get("/profile", async (req, res) => {
+app.get("/profile", (req, res) => {
   // Get token from cookie
   const token = req.cookies["token"];
 
   if (token) {
-    try {
-      const payload = await jwt.verify(token, secret);
+    jwt.verify(token, secret, (err, payload) => {
+      if (err) {
+        return res.status(401).send("Unauthorized");
+      }
       return res.send("Profile: " + payload.username);
-    } catch (error) {
-      res.status(401).send("Unauthorized");
-    }
-  } else {
-    return res.redirect("/login");
+    });
   }
-
+  return res.redirect("/login");
   // Verify token
 });
 app.listen(5000, () => console.log("Server is ilistening on port 5000..."));
