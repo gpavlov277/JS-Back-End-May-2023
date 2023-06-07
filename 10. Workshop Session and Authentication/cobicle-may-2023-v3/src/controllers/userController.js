@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
     password,
     repeatPassword,
   });
-  console.log(req.body);
+
   res.redirect("/users/login");
 });
 module.exports = router;
