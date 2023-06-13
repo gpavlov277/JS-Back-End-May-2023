@@ -60,7 +60,7 @@ router.post("/:cubeId/delete", async (req, res) => {
   res.redirect("/");
 });
 
-router.get("/:cubeId/edit", async (req, res) => {
+router.get("/:cubeId/edit", isAuth, async (req, res) => {
   const cube = await cubeManager.getOne(req.params.cubeId).lean();
   const options = difficultyOptionViewData(cube.difficultyLevel);
   res.render("cube/edit", { cube, options });
