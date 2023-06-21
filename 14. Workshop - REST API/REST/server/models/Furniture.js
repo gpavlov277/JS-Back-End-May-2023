@@ -29,6 +29,10 @@ const furnitureSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  ownerId: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const Furniture = mongoose.model("Furniture", furnitureSchema);
