@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const photoManager = require("../managers/photoManager");
 const { getErrorMessage } = require("../utils/errorHelpers");
+const { isAuth } = require("../middlewares/authMiddleware");
 
-router.get("/create", (req, res) => {
+router.get("/create", isAuth, (req, res) => {
   res.render("photos/create");
 });
 
@@ -47,7 +48,7 @@ router.get("/:photoId/delete", async (req, res) => {
   }
 });
 
-router.get("/:photoId/edit", async (req, res) => {
+router.get("/:photoId/edit", isAuth, async (req, res) => {
   const photoId = req.params.photoId;
   const photo = await photoManager.getOne(photoId).lean();
 
