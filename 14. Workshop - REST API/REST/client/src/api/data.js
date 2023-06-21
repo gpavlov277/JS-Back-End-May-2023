@@ -19,7 +19,7 @@ export async function getItemById(id) {
 export async function getMyFurniture() {
   const userId = sessionStorage.getItem("userId");
   return await api.get(
-    host + `/data/furnitures?where=_ownerId%3D%22${userId}%22`
+    host + `/data/furnitures?where=ownerId%3D%22${userId}%22`
   );
 }
 
